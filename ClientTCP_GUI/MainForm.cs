@@ -18,6 +18,8 @@ namespace ClientTCP
     {
         private ClientSender client;
         public string user;
+        public TcpClient server;
+        public string messages;
         public MainForm(ClientSender cs, string user)
         {
             InitializeComponent();
@@ -32,5 +34,12 @@ namespace ClientTCP
             Message msg = new Message(messenger, user);
             await client.SendMessage(msg);
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            client.RunReceiveLoop(messages);
+            txtViewMess.AppendText(messages + "\n");
+        }
     }
 }
+    

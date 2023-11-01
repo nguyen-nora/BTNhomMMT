@@ -15,12 +15,13 @@ namespace ClientTCP
 {
     public partial class Login : Form
     {
+        static ClientSender a = new ClientSender("127.0.0.1", 9050);
         private ClientSender client;
         public TcpClient server;
-        public Login(ClientSender cs)
+        public Login()
         {
             InitializeComponent();
-            this.client = cs;
+            this.client = a;
         }
 
         private async void loginBtn_Click(object sender, EventArgs e)

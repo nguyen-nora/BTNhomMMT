@@ -8,7 +8,7 @@ namespace ClientTCP
 {
     static class Program
     {
-        static ClientSender cs = new ClientSender("127.0.0.1", 9050);
+        //static ClientSender cs = new ClientSender("127.0.0.1", 9050);
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -18,7 +18,7 @@ namespace ClientTCP
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login(cs));
+            Application.Run(new Login());
         }
     }
 }

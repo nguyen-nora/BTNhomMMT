@@ -42,7 +42,7 @@ namespace ClientTCP
                     //login = true;
                 }
                 string username = await Login(user, pwd);
-                RunReceiveLoop();
+                //RunReceiveLoop();
                 //RunSendLoop(username);
             }
             catch (Exception)
@@ -77,14 +77,13 @@ namespace ClientTCP
                 server.Close();
             }
         }
-        public async virtual void RunReceiveLoop()
+        public async virtual void RunReceiveLoop(string msg)
         {
             try
             {
                 while (true)
                 {
-                    string msg = await ReceiveMessage();
-                    MessageBox.Show(msg);
+                    msg = await ReceiveMessage();
                 }
             }
             catch (Exception)
@@ -154,7 +153,7 @@ namespace ClientTCP
             }
             catch (Exception)
             {
-                Console.WriteLine("Connection interrupted!");
+                MessageBox.Show("Connection interrupted!");
                 return null;
             }
         }
