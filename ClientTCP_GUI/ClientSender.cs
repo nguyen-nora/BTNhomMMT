@@ -84,6 +84,7 @@ namespace ClientTCP
                 while (true)
                 {
                     msg = await ReceiveMessage();
+                    
                 }
             }
             catch (Exception)

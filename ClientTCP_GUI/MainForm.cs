@@ -19,7 +19,7 @@ namespace ClientTCP
         private ClientSender client;
         public string user;
         public TcpClient server;
-        public string messages;
+        public Message messages = new Message("");
         public MainForm(ClientSender cs, string user)
         {
             InitializeComponent();
@@ -37,8 +37,25 @@ namespace ClientTCP
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            client.RunReceiveLoop(messages);
-            txtViewMess.AppendText(messages + "\n");
+            txtViewMess.Text = "Hello";
+            RunReceiveLoop();
+        }
+
+
+        public async virtual void RunReceiveLoop()
+        {
+            try
+            {
+                while (true)
+                {
+                    Message msg = await client.ReceiveMessage();
+                    txtViewMess.Text += msg.sender + ": " + msg.msg + "\n";
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("null");
+            }
         }
     }
 }
