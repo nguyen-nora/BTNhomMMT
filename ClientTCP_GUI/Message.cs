@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace ClientTCP
 {
-    public class Message
+    class Message
     {
         public string msg;
         public string sender;
@@ -17,6 +17,11 @@ namespace ClientTCP
         {
             this.jsonString = jsonString;
             size = jsonString.Length;
+            Dictionary<string, object> dict = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonString);
+            msg = (string)dict.GetValueOrDefault("message");
+            sender = (string)dict.GetValueOrDefault("sender");
+            receivers = (List<string>)dict.GetValueOrDefault("receivers");
+            time = (DateTime)dict.GetValueOrDefault("time");
         }
         public Message(string msg, string sender, List<string> receivers)
         {
@@ -78,11 +83,6 @@ namespace ClientTCP
         public override string ToString()
         {
             return jsonString;
-        }
-
-        public static implicit operator string(Message v)
-        {
-            throw new NotImplementedException();
         }
     }
 }

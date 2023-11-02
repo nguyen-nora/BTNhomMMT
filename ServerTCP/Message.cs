@@ -17,6 +17,11 @@ namespace ServerTCP
         {
             this.jsonString = jsonString;
             size = jsonString.Length;
+            Dictionary<string, object> dict = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonString);
+            msg = (string)dict.GetValueOrDefault("message");
+            sender = (string)dict.GetValueOrDefault("sender");
+            receivers = (List<string>)dict.GetValueOrDefault("receivers");
+            time = (DateTime)dict.GetValueOrDefault("time");
         }
         public Message(string msg, string sender, List<string> receivers)
         {
