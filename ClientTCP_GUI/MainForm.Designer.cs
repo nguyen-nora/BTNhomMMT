@@ -45,6 +45,7 @@
             this.txtViewChatCTC = new System.Windows.Forms.TextBox();
             this.txtSendViewChatCTC = new System.Windows.Forms.TextBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.butRoom = new System.Windows.Forms.Button();
             this.Server.SuspendLayout();
             this.cms_ClientToClient.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -123,6 +124,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.butRoom);
             this.tabPage1.Controls.Add(this.Server);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
@@ -191,6 +193,16 @@
             this.txtSendViewChatCTC.Size = new System.Drawing.Size(587, 27);
             this.txtSendViewChatCTC.TabIndex = 13;
             // 
+            // butRoom
+            // 
+            this.butRoom.Location = new System.Drawing.Point(12, 392);
+            this.butRoom.Name = "butRoom";
+            this.butRoom.Size = new System.Drawing.Size(162, 44);
+            this.butRoom.TabIndex = 12;
+            this.butRoom.Text = "Create Room";
+            this.butRoom.UseVisualStyleBackColor = true;
+            this.butRoom.Click += new System.EventHandler(this.butRoom_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -229,5 +241,6 @@
         private System.Windows.Forms.TextBox txtViewChatCTC;
         private System.Windows.Forms.TextBox txtSendViewChatCTC;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Button butRoom;
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Net.Sockets;
@@ -19,6 +19,7 @@ namespace ServerTCP
         {
             server = new TcpListener(IPAddress.Any, port);
             users = new List<User>();
+            groups = new List<Group>();
             auth = new Authenticator("../../../userinfo.txt");
             queue = new Queue<Message>();
         }
@@ -79,7 +80,8 @@ namespace ServerTCP
             User u = null;
             try
             {
-                Console.WriteLine("Ket noi voi client " + client.ToString());
+                IPEndPoint remoteEndPoint = (IPEndPoint)client.Client.RemoteEndPoint;
+                Console.WriteLine("Connected to " + remoteEndPoint.Address + ":" + remoteEndPoint.Port);
                 await using NetworkStream ns = client.GetStream();
                 while (true)
                 {

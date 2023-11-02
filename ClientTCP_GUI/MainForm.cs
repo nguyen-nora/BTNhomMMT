@@ -57,6 +57,13 @@ namespace ClientTCP
                 Console.WriteLine("null");
             }
         }
+
+        private void butRoom_Click(object sender, EventArgs e)
+        {
+            Group groupForm = new Group(client, user);
+            groupForm.ShowDialog();
+            //this.Close();
+        }
     }
 }
     
