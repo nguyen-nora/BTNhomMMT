@@ -10,7 +10,6 @@ namespace ClientTCP
         {
             ClientSender a = new ClientSender("127.0.0.1", 9050);
             a.RunLoop();
-            Console.WriteLine("LMAO");
             while (true) {
                 Console.ReadKey();
             }

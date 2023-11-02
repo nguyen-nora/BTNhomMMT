@@ -12,6 +12,7 @@ namespace ServerTCP
     {
         private TcpListener server;
         private List<User> users;
+        private List<Group> groups;
         private Authenticator auth;
         private Queue<Message> queue;
         public ClientHandler(int port)
@@ -33,10 +34,16 @@ namespace ServerTCP
                 string str = Console.ReadLine();
                 switch (str.Split()[0])
                 {
-                    case "show":
+                    case "users":
                         foreach(User i in users)
                         {
                             Console.WriteLine("  " + i.username);
+                        }
+                        break;
+                    case "groups":
+                        foreach(Group i in groups)
+                        {
+                            Console.WriteLine(i);
                         }
                         break;
                     case "broadcast":
