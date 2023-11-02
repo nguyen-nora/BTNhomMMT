@@ -72,7 +72,8 @@ namespace ServerTCP
             User u = null;
             try
             {
-                Console.WriteLine("Ket noi voi client " + client.ToString());
+                IPEndPoint remoteEndPoint = (IPEndPoint)client.Client.RemoteEndPoint;
+                Console.WriteLine("Connected to " + remoteEndPoint.Address + ":" + remoteEndPoint.Port);
                 await using NetworkStream ns = client.GetStream();
                 while (true)
                 {
