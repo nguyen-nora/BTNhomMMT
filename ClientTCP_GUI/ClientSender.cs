@@ -77,13 +77,13 @@ namespace ClientTCP
                 server.Close();
             }
         }
-        public async virtual void RunReceiveLoop(string msg)
+        public async virtual void RunReceiveLoop()
         {
             try
             {
                 while (true)
                 {
-                    msg = await ReceiveMessage();
+                    Message msg = await ReceiveMessage();
                     
                 }
             }

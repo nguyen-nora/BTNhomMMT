@@ -19,6 +19,8 @@ namespace ClientTCP
         private ClientSender client;
         public string user;
         public TcpClient server;
+        public List<string> users;
+        public Dictionary<string, List<string>> groups;
         public Message messages = new Message("");
         public MainForm(ClientSender cs, string user)
         {
@@ -37,8 +39,9 @@ namespace ClientTCP
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            txtViewMess.Text = "Hello";
             RunReceiveLoop();
+            client.SendMessage(new Message("","@users_request"));
+            client.SendMessage(new Message("","@groups_request"));
         }
 
 
@@ -49,7 +52,26 @@ namespace ClientTCP
                 while (true)
                 {
                     Message msg = await client.ReceiveMessage();
-                    txtViewMess.Text += msg.sender + ": " + msg.msg + "\n";
+                    switch (msg.sender)
+                    {
+                        case "@users_response":
+                            users = new List<string>(msg.msg.Split(';'));
+                            break;
+                        case "@groups_response":
+                            groups = new Dictionary<string, List<string>>();
+                            foreach (string i in msg.msg.Split('\n'))
+                            {
+                                string[] k = i.Split(':');
+                                string name = k[0];
+                                List<string> members = new List<string>(k);
+                                members.RemoveAt(0);
+                                groups.Add(name, members);
+                            }
+                            break;
+                        default:
+                            txtViewMess.Text += msg.sender + ": " + msg.msg + Environment.NewLine;
+                            break;
+                    }
                 }
             }
             catch (Exception)
@@ -60,7 +82,7 @@ namespace ClientTCP
 
         private void butRoom_Click(object sender, EventArgs e)
         {
-            Group groupForm = new Group(client, user);
+            Group groupForm = new Group(client, user, users, groups);
             groupForm.ShowDialog();
             //this.Close();
         }

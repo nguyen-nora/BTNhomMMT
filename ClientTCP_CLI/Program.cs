@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 
 namespace ClientTCP
 {
@@ -11,7 +12,7 @@ namespace ClientTCP
             ClientSender a = new ClientSender("127.0.0.1", 9050);
             a.RunLoop();
             while (true) {
-                Console.ReadKey();
+                Thread.Sleep(10000);
             }
         }
     }

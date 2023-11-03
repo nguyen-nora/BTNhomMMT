@@ -29,38 +29,20 @@ namespace ClientTCP
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
             this.txtViewChat = new System.Windows.Forms.TextBox();
-            this.txtMess = new System.Windows.Forms.TextBox();
-            this.butSend = new System.Windows.Forms.Button();
             this.lvClient = new System.Windows.Forms.ListView();
             this.name = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // txtViewChat
             // 
-            this.txtViewChat.Location = new System.Drawing.Point(12, 34);
+            this.txtViewChat.Location = new System.Drawing.Point(10, 26);
+            this.txtViewChat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtViewChat.Multiline = true;
             this.txtViewChat.Name = "txtViewChat";
             this.txtViewChat.ReadOnly = true;
-            this.txtViewChat.Size = new System.Drawing.Size(464, 305);
+            this.txtViewChat.Size = new System.Drawing.Size(186, 264);
             this.txtViewChat.TabIndex = 0;
-            // 
-            // txtMess
-            // 
-            this.txtMess.Location = new System.Drawing.Point(12, 360);
-            this.txtMess.Name = "txtMess";
-            this.txtMess.Size = new System.Drawing.Size(364, 27);
-            this.txtMess.TabIndex = 1;
-            // 
-            // butSend
-            // 
-            this.butSend.Location = new System.Drawing.Point(382, 360);
-            this.butSend.Name = "butSend";
-            this.butSend.Size = new System.Drawing.Size(94, 29);
-            this.butSend.TabIndex = 2;
-            this.butSend.Text = "Send";
-            this.butSend.UseVisualStyleBackColor = true;
             // 
             // lvClient
             // 
@@ -69,12 +51,10 @@ namespace ClientTCP
             this.name});
             this.lvClient.GridLines = true;
             this.lvClient.HideSelection = false;
-            listViewItem1.StateImageIndex = 0;
-            this.lvClient.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
-            this.lvClient.Location = new System.Drawing.Point(533, 34);
+            this.lvClient.Location = new System.Drawing.Point(234, 26);
+            this.lvClient.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lvClient.Name = "lvClient";
-            this.lvClient.Size = new System.Drawing.Size(329, 300);
+            this.lvClient.Size = new System.Drawing.Size(175, 264);
             this.lvClient.TabIndex = 3;
             this.lvClient.UseCompatibleStateImageBehavior = false;
             this.lvClient.View = System.Windows.Forms.View.Details;
@@ -86,15 +66,15 @@ namespace ClientTCP
             // 
             // Group
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(891, 426);
+            this.ClientSize = new System.Drawing.Size(422, 311);
             this.Controls.Add(this.lvClient);
-            this.Controls.Add(this.butSend);
-            this.Controls.Add(this.txtMess);
             this.Controls.Add(this.txtViewChat);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Group";
             this.Text = "Group";
+            this.Load += new System.EventHandler(this.Group_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -103,8 +83,6 @@ namespace ClientTCP
         #endregion
 
         private System.Windows.Forms.TextBox txtViewChat;
-        private System.Windows.Forms.TextBox txtMess;
-        private System.Windows.Forms.Button butSend;
         private System.Windows.Forms.ListView lvClient;
         private System.Windows.Forms.ColumnHeader name;
     }

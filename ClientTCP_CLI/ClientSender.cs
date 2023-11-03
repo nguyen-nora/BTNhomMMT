@@ -56,6 +56,12 @@ namespace ClientTCP
                 while (true)
                 {
                     string str = Console.ReadLine();
+                    string receiver = "";
+                    if (str.Split(' ')[0][0] == '@')
+                    {
+                        receiver = str.Split(' ')[0];
+                        receiver = receiver.Remove(0,1);
+                    }
                     if (str.Equals(""))
                     {
                         continue;
@@ -65,7 +71,15 @@ namespace ClientTCP
                         Console.WriteLine("Ngat ket noi voi server...");
                         server.Close();
                     }
-                    Message msg = new Message(str, username);
+                    Message msg;
+                    if (receiver == "")
+                    {
+                        msg = new Message(str, username);
+                    }
+                    else
+                    {
+                        msg = new Message(str.Remove(0, receiver.Length + 2), username, receiver);
+                    }
                     await SendMessage(msg);
                 }
             }

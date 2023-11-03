@@ -18,6 +18,7 @@ namespace ServerTCP
                 Dictionary<string, string> dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(i);
                 users.Add(dict.GetValueOrDefault("username"), dict.GetValueOrDefault("password"));
             }
+            sr.Close();
         }
         public bool Exists(string username)
         {

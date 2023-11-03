@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace ServerTCP
 {
@@ -19,9 +20,24 @@ namespace ServerTCP
         {
             server = new TcpListener(IPAddress.Any, port);
             users = new List<User>();
-            groups = new List<Group>();
+            FetchGroups();
             auth = new Authenticator("../../../userinfo.txt");
             queue = new Queue<Message>();
+        }
+        private void FetchGroups()
+        {
+            groups = new List<Group>();
+            StreamReader sr = new StreamReader("../../../groups.txt");
+            string str = sr.ReadToEnd();
+            foreach (string i in str.Split('\n'))
+            {
+                string[] k = i.Split(':');
+                string name = k[0];
+                List<string> members = new List<string>(k);
+                members.RemoveAt(0);
+                groups.Add(new Group(name, members));
+            }
+            sr.Close();
         }
         public void RunLoop()
         {
@@ -100,7 +116,46 @@ namespace ServerTCP
                         Console.WriteLine(u.username + ": " + msg);
                         if (msg.receivers == null)
                         {
-                            await Broadcast(msg);
+                            string str;
+                            switch (msg.sender)
+                            {
+                                case "@users_request":
+                                    str = "";
+                                    foreach(User i in users)
+                                    {
+                                        str += i.username + ';';
+                                    }
+                                    if (str.Length > 0)
+                                    {
+                                        str = str.Remove(str.Length - 1);
+                                    }
+                                    await SendMessage(u, new Message(str, "@users_response"));
+                                    break;
+                                case "@groups_request":
+                                    str = "";
+                                    foreach (Group g in groups)
+                                    {
+                                        if (g.members.Contains(u.username))
+                                        {
+                                            str += g.name + ":";
+                                            foreach (string a in g.members)
+                                            {
+                                                str += a + ";";
+                                            }
+                                            str = str.Remove(str.Length - 1);
+                                            str += "\n";
+                                        }
+                                    }
+                                    if (str.Length > 0)
+                                    {
+                                        str = str.Remove(str.Length - 1);
+                                    }
+                                    await SendMessage(u, new Message(str, "@groups_response"));
+                                    break;
+                                default:
+                                    await Broadcast(msg);
+                                    break;
+                            }
                         }
                         else
                         {
@@ -109,10 +164,7 @@ namespace ServerTCP
                             {
                                 if (users.Find(k => k.username == i) != null)
                                 {
-                                    if (await SendMessage(u, msg))
-                                    {
-                                        continue;
-                                    }
+                                    await SendMessage(users.Find(k => k.username == i), msg);
                                 }
                                 //Queue to file
                             }
